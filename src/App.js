@@ -1,26 +1,61 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import Header from './components/header';
+import Home from './components/home';
+import Menu from './components/menu';
+import Contact from './components/contact';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    homePage: true,
+    menuPage: false,
+    contactPage: false,
+  };
+  render() {
+    if (this.state.homePage) {
+      return (
+        <React.Fragment>
+          <Header
+            onMenu={this.switchMenu}
+            onHome={this.switchHome}
+            onContact={this.switchContact}
+          />
+          <Home />
+        </React.Fragment>
+      );
+    } else if (this.state.menuPage) {
+      return (
+        <React.Fragment>
+          <Header
+            onMenu={this.switchMenu}
+            onHome={this.switchHome}
+            onContact={this.switchContact}
+          />
+          <Menu />
+        </React.Fragment>
+      );
+    } else if (this.state.contactPage) {
+      return (
+        <React.Fragment>
+          <Header
+            onMenu={this.switchMenu}
+            onHome={this.switchHome}
+            onContact={this.switchContact}
+          />
+          <Contact />
+        </React.Fragment>
+      );
+    }
+  }
+  switchMenu = () => {
+    this.setState({ homePage: false, menuPage: true, contactPage: false });
+  };
+  switchHome = () => {
+    this.setState({ homePage: true, menuPage: false, contactPage: false });
+  };
+  switchContact = () => {
+    this.setState({ homePage: false, menuPage: false, contactPage: true });
+  };
 }
 
 export default App;
